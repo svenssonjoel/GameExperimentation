@@ -30,7 +30,7 @@
       <item>
        <widget class="QPushButton" name="clearPushButton">
         <property name="text">
-         <string>clear</string>
+         <string>Clear</string>
         </property>
        </widget>
       </item>

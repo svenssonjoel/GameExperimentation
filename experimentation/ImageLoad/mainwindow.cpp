@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#define DEBUG
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -24,14 +27,26 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_loadPushButton_clicked()
 {
-    QFileDialog fd(this, tr("Load Image"), "../../../Resources", "*.png");
-    QString filename = fd.getOpenFileName();
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    tr("Load Image"),
+                                                    mResourceDir,
+                                                    tr("Images (*.png *.jpg)"));
 
     if (filename.isEmpty())  {
         return;
     }
 
     QPixmap p(filename);
+
+
+#ifdef DEBUG
+    qDebug() << "File: " << filename;
+    qDebug() << "Depth: " << p.depth();
+    qDebug() << "Width: " << p.width();
+    qDebug() << "Height: " << p.height();
+    qDebug() << "alpha: " << p.hasAlphaChannel();
+#endif
+
     if (! ui->graphicsView->scene()) {
         qDebug() << "No Scene!";
 
